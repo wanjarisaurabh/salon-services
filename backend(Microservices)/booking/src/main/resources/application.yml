@@ -10,7 +10,7 @@ spring:
     url: "jdbc:mysql://localhost:3304/salon_bookingdb?createDatabaseIfNotExist=true"
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 123456
+    password: 
   jpa:
     hibernate:
       ddl-auto: update
@@ -26,8 +26,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: saurabhwanjari774@gmail.com
-    password: qbij ivdv lenp vmrb
+    username: saurabh@gmail.com
+    password: 
     properties:
       mail:
         smtp:
@@ -62,12 +62,12 @@ endpoints:
 
 razorpay:
   api:
-    key: rzp_test_p05gsP0O9199nI
-    secret: rklxNAQymw4rgmkQMRRgw4An
+    key: 
+    secret: 
 
 stripe:
   api:
-    key: sk_test_51OY24RHktfaHaMpma35wc5WWVeCTtr23N5crNHIT0RkFlc7tQkAqdoH09x4QbHOfZfQf6MIvcio4lTJFllnOxGxj00dI1RvRn5
+    key: 
 
 #for eureka and service discovery
 
