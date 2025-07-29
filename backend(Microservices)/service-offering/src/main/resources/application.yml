@@ -1,0 +1,74 @@
+server:
+  port: 5005
+
+spring:
+  application:
+    name: service-offering
+
+  datasource:
+    url: "jdbc:mysql://localhost:3304/salon_servicedb?createDatabaseIfNotExist=true"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+#  rabbitmq:
+#    port: 5672
+#    host: localhost
+#    username: guest
+#    password: guest
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: saurabhwanjari774@gmail.com
+    password: qbij ivdv lenp vmrb
+    properties:
+      mail:
+        smtp:
+          auth: true
+        starttls:
+          enable: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    shutdown:
+      access: read_only
+    health:
+      probes:
+        enabled: true
+
+  info:
+    env:
+      enabled: true
+
+endpoints:
+  shutdown:
+    enabled: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+info:
+  app:
+    name: "Salon Service"
+    description: "Salon Service API For Salon Booking System"
+    version: "1.0.0"
