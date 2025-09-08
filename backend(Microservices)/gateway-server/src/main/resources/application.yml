@@ -1,0 +1,109 @@
+server:
+  port: 5000
+
+spring:
+  application:
+    name: gateway-server
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: SALON
+          uri: "lb://SALON"
+          predicates:
+            - Path= /salons/**, /api/salons/**, /api/admin/salons/**
+
+        - id: USER
+          uri: "lb://USER"
+          predicates:
+            - Path= /auth/**, /api/admin/users/**, /api/users/**, /users/**
+
+
+        - id: SERVICE-OFFERING
+          uri:
+            "lb://SERVICE-OFFERING"
+          predicates:
+            - Path= /api/service-offering/**
+
+        - id: CATEGORY
+          uri:
+            "lb://CATEGORY"
+          predicates:
+            - Path= /api/categories/**
+
+        - id: BOOKING
+          uri:
+            "lb://BOOKING"
+          predicates:
+            - Path= /api/bookings/**
+
+        - id: PAYMENT
+          uri:
+            "lb://PAYMENT"
+          predicates:
+            - Path= /api/payments/**
+
+        - id: NOTIFICATION
+          uri:
+            "lb://NOTIFICATION"
+          predicates:
+            - Path= /api/notifications/**
+
+        - id: REVIEW
+          uri:
+            "lb://REVIEW"
+          predicates:
+            - Path= /api/reviews/**
+
+
+
+      default-filters:
+      - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin # use to removing the duplicated HTTP Response from the header
+      global-cors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000"
+              - "https://salon-booking-three.vercel.app"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+                - "*"
+            allowCredentials: true
+   #for checking the auth token
+  security:
+    oauth2:
+      resource server:
+        jwt:
+          jwk-set-uri: "http://localhost:8080/realms/master/protocol/openid-connect/certs" #thi is endpoint use to checking
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      access: read_only
+
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+info:
+  app:
+    name: "gateway server"
+    description: "gateway server for ecommerce website"
